@@ -1,5 +1,4 @@
 import express from "express";
-import { v4 as uuid4 } from "uuid";
 
 const router = express.Router();
 
@@ -11,19 +10,28 @@ router.get('/', (req, res)=>{
 
 router.post('/', (req, res)=>{
   const ob = {
-    id: uuid4(),
+    id: array.length,
     title: req.body.title,
     description: req.body.description
   };
   array.push(ob);
-  console.log(array.length);
+  res.send(array);
 });
+
+router.put("/:id", (req, res)=>{
+  const id = req.params.id;
+  array[id].title = req.body.title;
+  array[id].description = req.body.description;
+  res.send(array[id])
+})
 
 router.delete('/:id', (req, res)=>{
   const arr = array.filter((a) => a.id != req.params["id"]);
+  arr.map((item, index)=>{
+    item.id = index;
+  });
   res.send(arr);
-  array = arr;
-  console.log(array.lenght)
+  array = arr; 
 })
 
 export default router;
