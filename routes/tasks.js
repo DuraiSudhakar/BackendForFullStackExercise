@@ -1,21 +1,24 @@
 import express from "express";
+import Project from "../models/taskModel.js";
 
 const router = express.Router();
 
 let array = [];
 
-router.get('/', (req, res)=>{
-  res.send(JSON.stringify(array));
+router.get('/', async (req, res)=>{
+  const content = await Project.find();
+  console.log(content)
+  res.send(JSON.stringify(content));
 })
 
-router.post('/', (req, res)=>{
+router.post('/', async (req, res)=>{
   const ob = {
-    id: array.length,
     title: req.body.title,
     description: req.body.description
   };
-  array.push(ob);
-  res.send(array);
+  const create = await Project.create(ob);
+  console.log(create);
+  res.send(create);
 });
 
 router.put("/:id", (req, res)=>{
@@ -25,7 +28,9 @@ router.put("/:id", (req, res)=>{
   res.send(array[id])
 })
 
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', async(req, res)=>{
+  const del = await Project.deleteOne({_id: req.params.id});
+  console.log(del);
   const arr = array.filter((a) => a.id != req.params["id"]);
   arr.map((item, index)=>{
     item.id = index;
