@@ -9,6 +9,10 @@ const projectSchema = Schema({
     type: String,
     required: true,
   },
+  user_Id: {
+    type: String,
+    required: true,
+  }
 });
 
 const Project = model("Project", projectSchema);
