@@ -20,10 +20,10 @@ const userModel =  Schema({
 userModel.statics.signup = async function (email, password) {
     const exists = await this.findOne({ email })
     if (!email || !password) {
-        throw Error("Enter all feilds");
+        throw Error("Enter all feilds")
     }
     if (exists) {
-        throw Error("Email already exist");
+        throw Error("Email already exist")
     }
     if (!validator.isEmail(email)) {
         throw Error("Invalid email")

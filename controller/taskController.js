@@ -12,12 +12,15 @@ const getTasks = async (req, res) => {
 
 const postTasks = async (req, res) => {
     const { title, description } = req.body;
-    const user_Id = req.user.id
+    const user_Id = req.user.id;
     try {
+        if (!title || !description) {
+            throw Error("Enter all fields")    
+        }
         const create = await Project.create({title, description, user_Id});
         res.status(200).json(create);
     } catch (err) {
-        res.status(400).json(err);
+        res.status(400).json({error: err.message});
     }
 };
 
