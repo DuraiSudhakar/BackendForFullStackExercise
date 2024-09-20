@@ -1,5 +1,4 @@
 import express from "express";
-import Project from "../models/taskModel.js";
 import {
     getTasks,
     postTasks,
