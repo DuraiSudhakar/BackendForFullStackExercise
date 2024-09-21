@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken"
 const secret = process.env.SECRET;
 
 function createToken(_id) {
-    return jwt.sign({_id}, secret, {expiresIn : '1m'})
+    return jwt.sign({_id}, secret, {expiresIn : '3d'})
 }
 export const userSignUp = async (req, res) => {
     const { email, password } = req.body;
